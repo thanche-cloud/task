@@ -6,6 +6,6 @@ COPY . .
 
 RUN pip install --no-cache-dir flask prometheus_client
 
-EXPOSE 80
+EXPOSE 80 8000
 
 CMD ["python", "app.py"]

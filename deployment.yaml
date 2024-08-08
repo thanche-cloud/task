@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task
+  labels:
+    app: task
+spec:
+  selector:
+    matchLabels:
+      app: task
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: task
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-secret
+      containers:
+      - name: task
+        image: thanche/task:latest
+        ports:
+        - containerPort: 80
+        - containerPort: 8000  # Metrics server port
